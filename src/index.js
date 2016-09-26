@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Validator from 'validatorjs';
 
-const unwrapErrors = errors => Object.keys(errors).reduce((memo, it) => memo.concat(data[it]), []);
+const unwrapErrors = errors => Object.keys(errors).reduce((memo, it) => memo.concat(errors[it]), []);
 
 const validation = (BaseComponent, rules, messages) => class extends Component {
   constructor(props, context) {

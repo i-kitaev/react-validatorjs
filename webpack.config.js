@@ -2,7 +2,7 @@ const path = require('path');
 
 const src = path.join(__dirname, 'src');
 const dist = path.join(__dirname, 'dist');
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -20,7 +20,7 @@ module.exports = {
   }],
   plugins: [
     new CopyWebpackPlugin([{
-      from: 'node_modules/validatorjs/dist/lang', to: '../lang'
+      from: 'node_modules/validatorjs/src/lang', to: '../lang'
     }])
   ],
   module: {

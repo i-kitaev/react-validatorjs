@@ -15,16 +15,18 @@ const validation = (BaseComponent, rules, messages) => class extends Component {
     return () => {
       this.setState({ errors: isValid ? {} : validator.errors.all() });
 
-      onValidate(isValid, isValid ? null : validator.errors);
+      if (typeof onValidate === 'function') onValidate(isValid, isValid ? null : validator.errors);
     };
   }
 
-  validate(data, callback) {
+  validate(data, onValidate, onCreate) {
     const validator = new Validator(data, rules, messages);
 
+    if (typeof onCreate === 'function') onCreate(validator);
+
     validator.checkAsync(
-      this.onValidate(true, validator, callback),
-      this.onValidate(false, validator, callback)
+      this.onValidate(true, validator, onValidate),
+      this.onValidate(false, validator, onValidate)
     );
   }
 

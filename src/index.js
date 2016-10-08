@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import Validator from 'validatorjs';
 
-const unwrapErrors = errors => Object.keys(errors).reduce((memo, it) => memo.concat(errors[it]), []);
-
 const validation = (BaseComponent, rules, messages) => class extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.state = { errors: [] };
+    this.state = { errors: {} };
 
     this.validate = this.validate.bind(this);
     this.reset = this.reset.bind(this);
@@ -15,13 +13,16 @@ const validation = (BaseComponent, rules, messages) => class extends Component {
 
   onValidate(isValid, validator, onValidate) {
     return () => {
-      this.setState({ errors: isValid ? [] : unwrapErrors(validator.errors.all()) });
+      this.setState({ errors: isValid ? {} : validator.errors.all() });
 
       if (typeof onValidate === 'function') onValidate(isValid, isValid ? null : validator.errors);
     };
   }
 
-  validate(data, onValidate, onCreate) {
+  validate(data, createOrValidate, validate) {
+    const hasValidateCallback = typeof validate === 'function';
+    const onCreate = hasValidateCallback ? createOrValidate : null;
+    const onValidate = hasValidateCallback ? validate : createOrValidate;
     const validator = new Validator(data, rules, messages);
 
     if (typeof onCreate === 'function') onCreate(validator);
@@ -33,7 +34,7 @@ const validation = (BaseComponent, rules, messages) => class extends Component {
   }
 
   reset() {
-    this.setState({ errors: [] });
+    this.setState({ errors: {} });
   }
 
   render() {

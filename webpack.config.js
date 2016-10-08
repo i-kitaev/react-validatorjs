@@ -29,7 +29,10 @@ module.exports = {
       amd: 'react-dom'
     },
     validatorjs: {
-      commonjs: 'validatorjs'
+      root: 'validatorjs',
+      commonjs2: 'validatorjs',
+      commonjs: 'validatorjs',
+      amd: 'validatorjs'
     }
   }],
   plugins: [

@@ -1,6 +1,6 @@
 {
   "name": "react-validatorjs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Validatorjs adaptation for react",
   "main": "./dist/react-validator.js",
   "repository": {
